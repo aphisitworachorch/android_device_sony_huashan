@@ -28,8 +28,8 @@
 
 #include <gui/ISensorServer.h>
 #include <gui/ISensorEventConnection.h>
-#include <gui/Sensor.h>
-#include <gui/SensorManager.h>
+#include "gui/Sensor.h"
+#include "gui/SensorManager.h"
 #include <gui/SensorEventQueue.h>
 
 // ----------------------------------------------------------------------------
@@ -63,14 +63,14 @@ void SensorManager::sensorManagerDied()
 
 status_t SensorManager::assertStateLocked() const {
     if (mSensorServer == NULL) {
-        // try for 300 seconds (60*5(getService() tries for 5 seconds)) before giving up ...
+        // try for one second
         const String16 name("sensorservice");
         status_t err = NO_ERROR;
 
-        for (int i = 0; i < 60; i++) {
+        for (int i=0 ; i<4 ; i++) {
             if (i > 0) {
                 // Don't sleep on the first try or after the last failed try
-                sleep(1);
+                usleep(250000);
             }
             err = getService(name, &mSensorServer);
             if (err != NAME_NOT_FOUND) {
@@ -92,17 +92,12 @@ status_t SensorManager::assertStateLocked() const {
             DeathObserver(SensorManager& mgr) : mSensorManger(mgr) { }
         };
 
-        LOG_ALWAYS_FATAL_IF(mSensorServer.get() == NULL, "getService(SensorService) NULL");
-
         mDeathObserver = new DeathObserver(*const_cast<SensorManager *>(this));
         IInterface::asBinder(mSensorServer)->linkToDeath(mDeathObserver);
 
         mSensors = mSensorServer->getSensorList(gPackageName);
         size_t count = mSensors.size();
-        mSensorList =
-                static_cast<Sensor const**>(malloc(count * sizeof(Sensor*)));
-        LOG_ALWAYS_FATAL_IF(mSensorList == NULL, "mSensorList NULL");
-
+        mSensorList = (Sensor const**)malloc(count * sizeof(Sensor*));
         for (size_t i=0 ; i<count ; i++) {
             mSensorList[i] = mSensors.array() + i;
         }
@@ -111,15 +106,17 @@ status_t SensorManager::assertStateLocked() const {
     return NO_ERROR;
 }
 
+
+
 ssize_t SensorManager::getSensorList(Sensor const* const** list) const
 {
     Mutex::Autolock _l(mLock);
     status_t err = assertStateLocked();
     if (err < 0) {
-        return static_cast<ssize_t>(err);
+        return ssize_t(err);
     }
     *list = mSensorList;
-    return static_cast<ssize_t>(mSensors.size());
+    return mSensors.size();
 }
 
 Sensor const* SensorManager::getDefaultSensor(int type)
@@ -148,7 +145,8 @@ Sensor const* SensorManager::getDefaultSensor(int type)
     return NULL;
 }
 
-sp<SensorEventQueue> SensorManager::createEventQueue() {
+sp<SensorEventQueue> SensorManager::createEventQueue()
+{
     sp<SensorEventQueue> queue;
 
     Mutex::Autolock _l(mLock);
@@ -156,9 +154,9 @@ sp<SensorEventQueue> SensorManager::createEventQueue() {
         sp<ISensorEventConnection> connection =
                 mSensorServer->createSensorEventConnection(String8(""), 0, gPackageName);
         if (connection == NULL) {
-            // SensorService just died or the app doesn't have required permissions.
-            ALOGE("createEventQueue: connection is NULL.");
-            return NULL;
+            // SensorService just died.
+            ALOGE("createEventQueue: connection is NULL. SensorService died.");
+            continue;
         }
         queue = new SensorEventQueue(connection);
         break;
