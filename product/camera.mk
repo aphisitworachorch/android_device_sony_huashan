@@ -9,7 +9,6 @@ PRODUCT_PACKAGES += \
 
 # Camera packages
 PRODUCT_PACKAGES += \
-    Snap \
     camera.qcom
 
 # SHIM packages
