@@ -17,7 +17,7 @@
 # Enhanced NFC
 $(call inherit-product, vendor/aokp/config/nfc_enhanced.mk)
 
-# Inherit common CM stuff
+# Inherit common AOKP stuff
 $(call inherit-product, vendor/aokp/config/common_full_phone.mk)
 
 # Inherit device configurations
