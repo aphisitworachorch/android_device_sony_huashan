@@ -13,10 +13,10 @@
 # limitations under the License.
 
 # Enhanced NFC
-$(call inherit-product, vendor/aosp/config/nfc_enhanced.mk)
+$(call inherit-product, vendor/slim/config/nfc_enhanced.mk)
 
-# Inherit AOSP common.
-$(call inherit-product, vendor/aosp/common.mk)
+# Inherit some common Slim stuff.
+$(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
 # Inherit device configurations
 $(call inherit-product, device/sony/huashan/device.mk)
@@ -27,7 +27,7 @@ TARGET_SCREEN_WIDTH := 720
 
 # Device identifications
 PRODUCT_DEVICE := huashan
-PRODUCT_NAME := aosp_huashan
+PRODUCT_NAME := slim_huashan
 PRODUCT_BRAND := Sony
 PRODUCT_MANUFACTURER := Sony
 PRODUCT_MODEL := Xperia SP
