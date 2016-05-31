@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Enhanced NFC
+$(call inherit-product, vendor/aosp/config/nfc_enhanced.mk)
+
 # Inherit AOSP common.
 $(call inherit-product, vendor/aosp/common.mk)
 
