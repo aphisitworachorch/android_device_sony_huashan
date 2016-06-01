@@ -2,6 +2,10 @@
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
+# RIL Fix Solution
+PRODUCT_PACKAGES += \
+	libril
+	
 # RIL packages
 PRODUCT_PACKAGES += \
     libtime_genoff
