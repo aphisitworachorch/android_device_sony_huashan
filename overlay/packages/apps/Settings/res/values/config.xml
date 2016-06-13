@@ -18,4 +18,8 @@
     <!-- This is used to determine whether to hide the
          preferred application install location settings-->
     <bool name="config_hide_app_install_location" translatable="false">false</bool>
+    
+        <!-- Config to show/hide Wifi calling mode Preference UI option -->
+    <bool name="config_wfc_mode_supported" translatable="false">true</bool>
+    
 </resources>
