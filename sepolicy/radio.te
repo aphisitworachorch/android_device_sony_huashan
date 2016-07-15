@@ -3,3 +3,7 @@ qmux_socket(radio)
 
 # Radio persisting file.
 allow radio persist_file:dir search;
+
+# Radio 
+allow radio system_app_data_file:dir { search getattr };
+allow radio system_app_data_file:file getattr;

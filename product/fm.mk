@@ -1,9 +1,6 @@
 # FM packages
 PRODUCT_PACKAGES += \
-    FM2 \
-    init.qcom.fm.sh \
-    libqcomfm_jni \
-    qcom.fmradio
+    init.qcom.fm.sh
 
 # FM properties
 PRODUCT_PROPERTY_OVERRIDES += \
