@@ -97,10 +97,8 @@ lib/libloc_eng.so
 vendor/lib/libgeofence.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
-vendor/lib/liblocationservice.so
 vendor/lib/libquipc_os_api.so
 vendor/lib/libquipc_ulp_adapter.so
-vendor/lib/libulp2.so
 
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
@@ -190,7 +188,6 @@ etc/firmware/q6.b04
 etc/firmware/q6.b05
 etc/firmware/q6.b06
 etc/firmware/q6.mdt
-
 
 # QMI
 lib/libqmi.so
