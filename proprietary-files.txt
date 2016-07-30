@@ -189,7 +189,6 @@ etc/firmware/q6.b05
 etc/firmware/q6.b06
 etc/firmware/q6.mdt
 
-
 # QMI
 lib/libqmi.so
 lib/libqmi_client_qmux.so
