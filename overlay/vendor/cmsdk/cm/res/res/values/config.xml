@@ -28,4 +28,7 @@
          handling of the value- a use case for this would be a segmented
          LED that can function as a range bar -->
     <bool name="config_useSegmentedBatteryLed">true</bool>
+
+    <!-- Lock screen blur default status -->
+    <bool name="config_lock_screen_blur_default">false</bool>
 </resources>
